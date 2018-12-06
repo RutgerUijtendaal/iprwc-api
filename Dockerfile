@@ -1,5 +1,7 @@
 FROM openjdk:8-jre-alpine
 
+ENV API_VERSION 0.0.1
+
 COPY ./target/api-*.jar /app.jar
 COPY config.yml data/config.yml
 
