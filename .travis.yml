@@ -12,7 +12,7 @@ env:
   - secure: AxgR7tImSV+L0cWpEnTU0q1vkiyr6O+jmBR8dNs9E528qKtg1krGzfQusi9UXWQZvqVsMp/am+R+GD/5qCteEbuIM9he8s5261Cwh6p7JaFM2qgVkxc3VhwDjY6BoIaHQ4ukLc72ZlyBuEkVqPiz/0s3t1JeVOhxdwheArkspPpYh8XmOuY4PRgNZM9Gvbb213kfOTluE69V1oaA1mOhnphBv4Q+yswDMB1dDyqWGuR15U6/hL/ksaoCoOxuuq5BLzcKVll+xkxg4lYePGnfnb+6cxfR8+K3x0KR3M2E+GO5HTUsjS88ZvRgcZmHj9i4JUFji+spdMtwwUMQD95dCPEbAu6W0EHBJ+kOHvDvz4aLqWtNOb/TrdvO1ALW9dKJR5r7CJMJmsVmbqUdQMe7ux2049PKo6YufnDoBu1YBI9waYKPCs3Ny1kjZBU5uF1Frh1q8gsii1DqUtA2dsW4ImCEySwqtsBkHxYyqx43y/KjteLfdqFdqkrbUlZ8Nvs0OPN8H3x6qCAyRzD4cgsOdaTKMgCxXnYLFTqdk6kXbMyvhVBaWqiPYvHKTW0r9T35XNfSwtv6nwoBsdJqGnbVPlZZVPKSUCdb+SsT+RBfgXc4A71xp14LQ0lm37XaWZ903Gt9T3pU1u4q5VwjWzKM/yjO/ZM6A3+CqJRkGWPSAb8=
 
 before_script:
-  - version=mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version
+  - version=$(mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate "-Dexpression=project.version")
 script:
   - docker build --tag "$IMAGE_NAME" .
 before_deploy:
