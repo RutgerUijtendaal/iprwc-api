@@ -10,7 +10,8 @@ env:
 before_script:
   - version="$(awk '$2 == "API_VERSION" { print $3; exit }' Dockerfile)"
 script:
-- docker build --tag $IMAGE_NAME .
+- mvn clean install
+- docker build --tag $IMAGE_NAME:version .
 before_deploy:
 - echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
 deploy:
