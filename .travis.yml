@@ -15,6 +15,6 @@ before_deploy:
 - echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
 deploy:
   provider: script
-  script: docker push ${IMAGE_NAME}:latest && docker push ${IMAGE_NAME}:${version}
+  script: docker push ${IMAGE_NAME}:latest
   on:
     branch: master
