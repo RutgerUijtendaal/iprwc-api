@@ -11,11 +11,11 @@ before_script:
   - version="$(awk '$2 == "API_VERSION" { print $3; exit }' Dockerfile)"
 script:
 - mvn clean install
-- docker build --tag $IMAGE_NAME:${version} .
+- docker build --tag "$IMAGE_NAME:${version}" .
 before_deploy:
 - echo $REGISTRY_PASS | docker login -u $REGISTRY_USER --password-stdin
 deploy:
   provider: script
-  script: docker push ${IMAGE_NAME}:${version}
+  script: docker push "${IMAGE_NAME}:${version}"
   on:
     branch: master
