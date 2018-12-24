@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 
 public class apiConfiguration extends Configuration {
 
+
+
     @Valid
     @NotNull
     private DataSourceFactory database = new DataSourceFactory();

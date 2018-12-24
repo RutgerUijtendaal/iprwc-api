@@ -5,17 +5,17 @@ import java.util.Objects;
 
 @Entity
 @Table(name="order_status")
-@NamedQueries(
-        {
-                @NamedQuery(
-                        name = "com.rutgeruijtendaal.core.OrderStatus.getAll",
-                        query = "SELECT p FROM OrderStatus p"
-                )
-        })
+@NamedQueries({
+        @NamedQuery(
+                name = "com.rutgeruijtendaal.core.OrderStatus.getAll",
+                query = "SELECT p FROM OrderStatus p"
+        )
+})
 public class OrderStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // IDENTITY lets the DB AI the key
-    private int order_status_id;
+    @Column(name="order_status_id", nullable = false)
+    private int orderStatusId;
 
     @Column(name="name", nullable = false)
     private String name;
@@ -32,12 +32,12 @@ public class OrderStatus {
         this.description = description;
     }
 
-    public int getId() {
-        return order_status_id;
+    public int getOrderStatusId() {
+        return orderStatusId;
     }
 
-    public void setId(int order_status_id) {
-        this.order_status_id = order_status_id;
+    public void setOrderStatusId(int orderStatusId) {
+        this.orderStatusId = orderStatusId;
     }
 
     public String getName() {
@@ -68,13 +68,13 @@ public class OrderStatus {
 
         final OrderStatus that = (OrderStatus) o;
 
-        return Objects.equals(this.order_status_id, that.order_status_id) &&
+        return Objects.equals(this.orderStatusId, that.orderStatusId) &&
                 Objects.equals(this.name, that.name) &&
                 Objects.equals(this.description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(order_status_id, name, description);
+        return Objects.hash(orderStatusId, name, description);
     }
 }
