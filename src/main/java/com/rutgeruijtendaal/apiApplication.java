@@ -3,6 +3,7 @@ package com.rutgeruijtendaal;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
+import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
@@ -25,6 +26,10 @@ import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.FilterRegistration;
+import java.util.EnumSet;
 
 public class apiApplication extends Application<apiConfiguration> {
 
@@ -78,6 +83,7 @@ public class apiApplication extends Application<apiConfiguration> {
         environment.jersey().register(new ProductResource(DaoManager.getInstance().getProductDAO()));
 
         registerAuthFilters(environment);
+        configureCors(environment);
     }
 
     private void registerAuthFilters(Environment environment) {
@@ -97,6 +103,21 @@ public class apiApplication extends Application<apiConfiguration> {
         environment.jersey().register(feature);
         environment.jersey().register(binder);
         environment.jersey().register(RolesAllowedDynamicFeature.class);
+
+    }
+
+    private void configureCors(Environment environment) {
+        final FilterRegistration.Dynamic cors =
+                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+
+        // Configure CORS parameters
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_ORIGINS_PARAM, "*");
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_HEADERS_PARAM, "X-Requested-With,Content-Type,Accept,Origin,Authorization");
+        cors.setInitParameter(CrossOriginFilter.ALLOWED_METHODS_PARAM, "OPTIONS,GET,PUT,POST,DELETE,HEAD");
+        cors.setInitParameter(CrossOriginFilter.ALLOW_CREDENTIALS_PARAM, "true");
+
+        // Add URL mapping
+        cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
     }
 
