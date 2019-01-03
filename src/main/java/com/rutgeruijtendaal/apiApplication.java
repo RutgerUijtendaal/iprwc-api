@@ -73,9 +73,10 @@ public class apiApplication extends Application<apiConfiguration> {
         // Users
         // Services
         final RegisterService registerService = new RegisterService(DaoManager.getInstance().getUserDAO());
+        final LoginService loginService = new LoginService(DaoManager.getInstance().getUserDAO());
 
         // Resources
-        environment.jersey().register(new LoginResource());
+        environment.jersey().register(new LoginResource(loginService));
         environment.jersey().register(new ContactInfoResource(DaoManager.getInstance().getContactInfoDAO()));
         environment.jersey().register(new RegisterResource(registerService));
 

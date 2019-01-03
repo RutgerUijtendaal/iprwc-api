@@ -2,9 +2,11 @@ package com.rutgeruijtendaal.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.rutgeruijtendaal.auth.jwt.AuthUser;
 import com.rutgeruijtendaal.core.ContactInfo;
 import com.rutgeruijtendaal.core.OrderStatus;
 import com.rutgeruijtendaal.db.ContactInfoDAO;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
 
@@ -29,13 +31,13 @@ public class ContactInfoResource {
         contactInfoDAO.create(contactInfo);
     }
 
-    @Path("/{id}")
     @GET
     @Timed
     @UnitOfWork
     @Produces(MediaType.APPLICATION_JSON)
-    public ContactInfo getContact(@PathParam("id") IntParam contactInfoId) {
-        return findSafely(contactInfoId.get());
+    public ContactInfo getContact(@Auth AuthUser authUser) {
+        System.out.println(authUser);
+        return findSafely(authUser.getId());
     }
 
     private ContactInfo findSafely(int contactInfoId) {

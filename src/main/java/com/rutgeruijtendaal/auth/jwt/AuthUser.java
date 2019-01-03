@@ -42,4 +42,13 @@ public class AuthUser implements Principal {
     public int hashCode() {
         return Objects.hash(id, name, roles);
     }
+
+    @Override
+    public String toString() {
+        return "AuthUser{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", roles='" + roles + '\'' +
+                '}';
+    }
 }

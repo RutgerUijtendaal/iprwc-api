@@ -13,7 +13,7 @@ public class JwtAuthoriser implements Authorizer<AuthUser> {
 
         String roles = authUser.getRoles();
         if (roles == null) {
-            System.out.println("msg=roles were null");
+            System.out.println("roles were null");
             return false;
         }
         return roles.contains(requiredRole);

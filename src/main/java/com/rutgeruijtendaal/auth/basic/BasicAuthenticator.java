@@ -20,7 +20,6 @@ public class BasicAuthenticator implements Authenticator<BasicCredentials, Princ
 
     public BasicAuthenticator(UserDAO userDAO) {
         this.userDAO = userDAO;
-//        this.userDAO = DaoManager.getInstance().getUserDAO();
     }
 
     @Override
@@ -29,7 +28,7 @@ public class BasicAuthenticator implements Authenticator<BasicCredentials, Princ
         if(isValidCredentials(credentials)) {
             return Optional.of(new PrincipalImpl(credentials.getUsername()));
         }
-        return Optional.empty();
+        throw new AuthenticationException("Invalid user credentials");
     }
 
     private boolean isValidCredentials(BasicCredentials credentials) {

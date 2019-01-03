@@ -3,6 +3,7 @@ package com.rutgeruijtendaal.resources;
 import com.rutgeruijtendaal.auth.Secrets;
 import com.rutgeruijtendaal.auth.jwt.UserRoles;
 import com.rutgeruijtendaal.core.LoginResponse;
+import com.rutgeruijtendaal.service.LoginService;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.auth.PrincipalImpl;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -22,26 +23,14 @@ import static org.jose4j.jws.AlgorithmIdentifiers.HMAC_SHA256;
 @Produces(MediaType.APPLICATION_JSON)
 public class LoginResource {
 
+    private LoginService loginService;
+
+    public LoginResource(LoginService loginService) { this.loginService = loginService; }
+
     @GET
     @UnitOfWork
-    public LoginResponse login(@Auth PrincipalImpl user) throws JoseException {
-        System.out.println(user);
-        return new LoginResponse(buildToken(user).getCompactSerialization());
+    public LoginResponse login(@Auth PrincipalImpl principal) throws JoseException {
+        return loginService.login(principal);
     }
 
-    private JsonWebSignature buildToken(PrincipalImpl user) {
-        // These claims would be tightened up for production
-        final JwtClaims claims = new JwtClaims();
-        claims.setSubject("1");
-        claims.setStringClaim("user", user.getName());
-        claims.setStringClaim("roles", UserRoles.ROLE_ONE);
-        claims.setIssuedAtToNow();
-        claims.setGeneratedJwtId();
-
-        final JsonWebSignature jws = new JsonWebSignature();
-        jws.setPayload(claims.toJson());
-        jws.setAlgorithmHeaderValue(HMAC_SHA256);
-        jws.setKey(new HmacKey(Secrets.JWT_SECRET_KEY));
-        return jws;
-    }
 }
