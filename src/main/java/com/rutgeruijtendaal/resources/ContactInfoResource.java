@@ -3,12 +3,10 @@ package com.rutgeruijtendaal.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.rutgeruijtendaal.auth.jwt.AuthUser;
-import com.rutgeruijtendaal.core.ContactInfo;
-import com.rutgeruijtendaal.core.OrderStatus;
+import com.rutgeruijtendaal.core.db.entities.ContactInfo;
 import com.rutgeruijtendaal.db.ContactInfoDAO;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import io.dropwizard.jersey.params.IntParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

@@ -15,6 +15,9 @@ public class DaoManager {
 
     private static ProductDAO productDAO;
 
+    private static CartDAO cartDAO;
+    private static CartItemDAO cartItemDAO;
+
     private DaoManager() {}
 
     public static DaoManager getInstance() {
@@ -30,6 +33,9 @@ public class DaoManager {
         contactInfoDAO = new ContactInfoDAO(factory);
 
         productDAO = new ProductDAO(factory);
+
+        cartDAO = new CartDAO(factory);
+        cartItemDAO = new CartItemDAO(factory);
     }
 
     public OrderStatusDAO getOrderStatusDAO() {
@@ -55,4 +61,8 @@ public class DaoManager {
     public ProductDAO getProductDAO() {
         return productDAO;
     }
+
+    public CartDAO getCartDAO() { return cartDAO; }
+
+    public CartItemDAO getCartItemDAO() { return cartItemDAO; }
 }

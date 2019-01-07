@@ -1,7 +1,6 @@
 package com.rutgeruijtendaal.db;
 
-import com.rutgeruijtendaal.core.User;
-import io.dropwizard.hibernate.UnitOfWork;
+import com.rutgeruijtendaal.core.db.entities.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 

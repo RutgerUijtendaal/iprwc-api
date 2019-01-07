@@ -1,4 +1,4 @@
-package com.rutgeruijtendaal.core;
+package com.rutgeruijtendaal.core.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

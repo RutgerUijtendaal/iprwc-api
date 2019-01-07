@@ -2,7 +2,7 @@ package com.rutgeruijtendaal.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.annotation.JsonView;
-import com.rutgeruijtendaal.core.User;
+import com.rutgeruijtendaal.core.db.entities.User;
 import com.rutgeruijtendaal.service.RegisterService;
 import com.rutgeruijtendaal.view.View;
 import io.dropwizard.hibernate.UnitOfWork;

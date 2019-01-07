@@ -1,4 +1,4 @@
-package com.rutgeruijtendaal.core;
+package com.rutgeruijtendaal.core.db.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -7,7 +7,7 @@ import java.util.Objects;
 @Table(name="order_status")
 @NamedQueries({
         @NamedQuery(
-                name = "com.rutgeruijtendaal.core.OrderStatus.getAll",
+                name = "com.rutgeruijtendaal.core.db.entities.OrderStatus.getAll",
                 query = "SELECT p FROM OrderStatus p"
         )
 })

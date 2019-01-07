@@ -1,4 +1,4 @@
-package com.rutgeruijtendaal.core;
+package com.rutgeruijtendaal.core.db.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -7,7 +7,7 @@ import java.util.Objects;
 @Table(name="tax_bracket")
 @NamedQueries({
         @NamedQuery(
-                name="com.rutgeruijtendaal.core.TaxBracket.getAll",
+                name="com.rutgeruijtendaal.core.db.entities.TaxBracket.getAll",
                 query="SELECT p FROM TaxBracket p"
         )
 })

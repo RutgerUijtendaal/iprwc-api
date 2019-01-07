@@ -1,7 +1,6 @@
 package com.rutgeruijtendaal.auth.basic;
 
-import com.rutgeruijtendaal.core.User;
-import com.rutgeruijtendaal.db.DaoManager;
+import com.rutgeruijtendaal.core.db.entities.User;
 import com.rutgeruijtendaal.db.UserDAO;
 import com.rutgeruijtendaal.utils.PasswordService;
 import io.dropwizard.auth.AuthenticationException;

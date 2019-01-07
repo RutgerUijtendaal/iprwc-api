@@ -1,7 +1,7 @@
 package com.rutgeruijtendaal.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.rutgeruijtendaal.core.TaxBracket;
+import com.rutgeruijtendaal.core.db.entities.TaxBracket;
 import com.rutgeruijtendaal.db.TaxBracketDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;

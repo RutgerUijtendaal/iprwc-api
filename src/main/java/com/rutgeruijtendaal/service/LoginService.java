@@ -2,8 +2,8 @@ package com.rutgeruijtendaal.service;
 
 import com.rutgeruijtendaal.auth.Secrets;
 import com.rutgeruijtendaal.auth.jwt.UserRoles;
-import com.rutgeruijtendaal.core.LoginResponse;
-import com.rutgeruijtendaal.core.User;
+import com.rutgeruijtendaal.core.response.LoginResponse;
+import com.rutgeruijtendaal.core.db.entities.User;
 import com.rutgeruijtendaal.db.UserDAO;
 import io.dropwizard.auth.PrincipalImpl;
 import org.jose4j.jws.JsonWebSignature;

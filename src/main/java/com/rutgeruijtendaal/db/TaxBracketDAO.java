@@ -1,6 +1,6 @@
 package com.rutgeruijtendaal.db;
 
-import com.rutgeruijtendaal.core.TaxBracket;
+import com.rutgeruijtendaal.core.db.entities.TaxBracket;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
@@ -14,6 +14,6 @@ public class TaxBracketDAO extends BaseDAO<TaxBracket> {
 
     @SuppressWarnings("unchecked")
     public List<TaxBracket> getAll() {
-        return list((Query<TaxBracket>) namedQuery("com.rutgeruijtendaal.core.TaxBracket.getAll"));
+        return list((Query<TaxBracket>) namedQuery("com.rutgeruijtendaal.core.db.entities.TaxBracket.getAll"));
     }
 }

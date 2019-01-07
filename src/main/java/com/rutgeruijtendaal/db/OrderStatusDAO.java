@@ -1,6 +1,6 @@
 package com.rutgeruijtendaal.db;
 
-import com.rutgeruijtendaal.core.OrderStatus;
+import com.rutgeruijtendaal.core.db.entities.OrderStatus;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
@@ -14,6 +14,6 @@ public class OrderStatusDAO extends BaseDAO<OrderStatus> {
 
     @SuppressWarnings("unchecked")
     public List<OrderStatus> getAll() {
-        return list((Query<OrderStatus>) namedQuery("com.rutgeruijtendaal.core.OrderStatus.getAll"));
+        return list((Query<OrderStatus>) namedQuery("com.rutgeruijtendaal.core.db.entities.OrderStatus.getAll"));
     }
 }

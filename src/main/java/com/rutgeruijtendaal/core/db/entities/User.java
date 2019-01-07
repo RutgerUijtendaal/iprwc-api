@@ -1,4 +1,4 @@
-package com.rutgeruijtendaal.core;
+package com.rutgeruijtendaal.core.db.entities;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.rutgeruijtendaal.view.View;

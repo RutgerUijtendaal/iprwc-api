@@ -3,6 +3,7 @@ package com.rutgeruijtendaal;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
+import com.rutgeruijtendaal.core.db.entities.*;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
@@ -11,7 +12,6 @@ import org.jose4j.jwt.consumer.JwtContext;
 
 import com.rutgeruijtendaal.auth.AuthFilters;
 import com.rutgeruijtendaal.auth.jwt.AuthUser;
-import com.rutgeruijtendaal.core.*;
 import com.rutgeruijtendaal.db.*;
 import com.rutgeruijtendaal.resources.*;
 import com.rutgeruijtendaal.service.*;
@@ -44,7 +44,9 @@ public class apiApplication extends Application<apiConfiguration> {
             ContactInfo.class,
             ProductType.class,
             TaxBracket.class,
-            Product.class) {
+            Product.class,
+            Cart.class,
+            CartItem.class) {
         @Override
         public DataSourceFactory getDataSourceFactory(apiConfiguration configuration) {
             return configuration.getDataSourceFactory();
@@ -70,18 +72,28 @@ public class apiApplication extends Application<apiConfiguration> {
         environment.jersey().register(new TaxBracketResource(DaoManager.getInstance().getTaxBracketDAO()));
         environment.jersey().register(new ProductTypeResource(DaoManager.getInstance().getProductTypeDAO()));
 
-        // Users
-        // Services
-        final RegisterService registerService = new RegisterService(DaoManager.getInstance().getUserDAO());
+        // User
+        final RegisterService registerService = new RegisterService(
+                DaoManager.getInstance().getUserDAO(),
+                DaoManager.getInstance().getCartDAO()
+        );
         final LoginService loginService = new LoginService(DaoManager.getInstance().getUserDAO());
 
-        // Resources
         environment.jersey().register(new LoginResource(loginService));
         environment.jersey().register(new ContactInfoResource(DaoManager.getInstance().getContactInfoDAO()));
         environment.jersey().register(new RegisterResource(registerService));
 
         // Products
         environment.jersey().register(new ProductResource(DaoManager.getInstance().getProductDAO()));
+
+        // Cart
+        final CartService cartService = new CartService(
+                DaoManager.getInstance().getCartDAO(),
+                DaoManager.getInstance().getCartItemDAO(),
+                DaoManager.getInstance().getProductDAO()
+        );
+
+        environment.jersey().register(new CartResource(cartService));
 
         registerAuthFilters(environment);
         configureCors(environment);

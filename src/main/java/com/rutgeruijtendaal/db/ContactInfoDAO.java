@@ -1,6 +1,6 @@
 package com.rutgeruijtendaal.db;
 
-import com.rutgeruijtendaal.core.ContactInfo;
+import com.rutgeruijtendaal.core.db.entities.ContactInfo;
 import org.hibernate.SessionFactory;
 
 public class ContactInfoDAO extends BaseDAO<ContactInfo> {

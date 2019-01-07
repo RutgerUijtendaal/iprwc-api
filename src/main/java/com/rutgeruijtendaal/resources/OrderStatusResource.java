@@ -1,7 +1,7 @@
 package com.rutgeruijtendaal.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.rutgeruijtendaal.core.OrderStatus;
+import com.rutgeruijtendaal.core.db.entities.OrderStatus;
 import com.rutgeruijtendaal.db.OrderStatusDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;

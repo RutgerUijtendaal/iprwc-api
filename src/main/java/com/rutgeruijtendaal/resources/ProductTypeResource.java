@@ -1,7 +1,7 @@
 package com.rutgeruijtendaal.resources;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.rutgeruijtendaal.core.ProductType;
+import com.rutgeruijtendaal.core.db.entities.ProductType;
 import com.rutgeruijtendaal.db.ProductTypeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;

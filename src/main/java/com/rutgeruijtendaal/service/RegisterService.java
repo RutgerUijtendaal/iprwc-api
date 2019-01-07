@@ -1,6 +1,8 @@
 package com.rutgeruijtendaal.service;
 
-import com.rutgeruijtendaal.core.User;
+import com.rutgeruijtendaal.core.db.entities.Cart;
+import com.rutgeruijtendaal.core.db.entities.User;
+import com.rutgeruijtendaal.db.CartDAO;
 import com.rutgeruijtendaal.db.UserDAO;
 import com.rutgeruijtendaal.utils.PasswordService;
 
@@ -11,9 +13,11 @@ import java.security.spec.InvalidKeySpecException;
 public class RegisterService {
 
     private UserDAO userDao;
+    private CartDAO cartDAO;
 
-    public RegisterService(UserDAO userDao) {
+    public RegisterService(UserDAO userDao, CartDAO cartDAO) {
         this.userDao = userDao;
+        this.cartDAO = cartDAO;
     }
 
     public User register(User user) {
@@ -24,6 +28,9 @@ public class RegisterService {
         user.setPassword(createPasswordHash(user.getPassword()));
 
         userDao.create(user);
+
+        Cart cart = new Cart(user.getUserId());
+        cartDAO.create(cart);
 
         return user;
     }

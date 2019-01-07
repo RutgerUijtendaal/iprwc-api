@@ -1,6 +1,6 @@
 package com.rutgeruijtendaal.db;
 
-import com.rutgeruijtendaal.core.Product;
+import com.rutgeruijtendaal.core.db.entities.Product;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
@@ -17,6 +17,6 @@ public class ProductDAO extends BaseDAO<Product> {
 
     @SuppressWarnings("unchecked")
     public List<Product> getAll() {
-        return list((Query<Product>) namedQuery("com.rutgeruijtendaal.core.Product.getAll"));
+        return list((Query<Product>) namedQuery("com.rutgeruijtendaal.core.db.entities.Product.getAll"));
     }
 }

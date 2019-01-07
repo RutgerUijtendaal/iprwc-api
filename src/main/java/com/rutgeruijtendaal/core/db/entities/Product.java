@@ -1,4 +1,4 @@
-package com.rutgeruijtendaal.core;
+package com.rutgeruijtendaal.core.db.entities;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -13,7 +13,7 @@ import java.util.Objects;
 )
 @NamedQueries({
         @NamedQuery(
-                name="com.rutgeruijtendaal.core.Product.getAll",
+                name="com.rutgeruijtendaal.core.db.entities.Product.getAll",
                 query = "SELECT p FROM Product p"
         )
 })
