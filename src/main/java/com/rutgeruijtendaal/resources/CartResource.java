@@ -7,6 +7,7 @@ import com.rutgeruijtendaal.core.db.entities.Product;
 import com.rutgeruijtendaal.service.CartService;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
+import io.dropwizard.jersey.params.IntParam;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -38,9 +39,9 @@ public class CartResource {
 
     @DELETE
     @UnitOfWork
-    @Consumes(MediaType.APPLICATION_JSON)
-    public CartItem removeItem(@Auth AuthUser authUser, CartItemJson cartItemJson) {
-        return cartService.removeCartItem(authUser, cartItemJson);
+    @Path("/{productId}")
+    public void removeItem(@Auth AuthUser authUser, @PathParam("productId") IntParam productId) {
+        cartService.removeCartItem(authUser, productId.get());
     }
 
     @POST

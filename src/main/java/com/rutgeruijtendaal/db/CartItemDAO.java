@@ -1,6 +1,7 @@
 package com.rutgeruijtendaal.db;
 
 import com.rutgeruijtendaal.core.db.entities.CartItem;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
@@ -16,12 +17,12 @@ public class CartItemDAO extends BaseDAO<CartItem> {
         return persist(cartItem);
     }
 
-    public CartItem remove(CartItem cartItem) {
-        return remove(cartItem);
+    public void remove(CartItem cartItem) {
+        currentSession().remove(cartItem);
     }
 
     public CartItem update(CartItem cartItem) {
-        return update(cartItem);
+        return (CartItem) currentSession().merge(cartItem);
     }
 
     public List<CartItem> getCartItems(int cartId) {

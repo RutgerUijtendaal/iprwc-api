@@ -1,10 +1,15 @@
 package com.rutgeruijtendaal.core;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CartItemJson {
 
-    public CartItemJson(int productId, int itemCount) {
+    @JsonCreator
+    public CartItemJson(
+            @JsonProperty("productId") int productId,
+            @JsonProperty("itemCount") int itemCount
+    ) {
         this.productId = productId;
         this.itemCount = itemCount;
     }
