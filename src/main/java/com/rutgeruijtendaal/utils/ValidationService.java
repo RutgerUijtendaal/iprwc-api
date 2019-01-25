@@ -22,7 +22,7 @@ public class ValidationService {
      * @return true if pass is of min length, false otherwise
      */
     public static boolean isValidPassword(String password) {
-        return password.length() > 8;
+        return password.length() > 7;
     }
 
 
@@ -40,7 +40,7 @@ public class ValidationService {
     }
 
     public static boolean isValidPostLetters(String postLetters) {
-        String nPattern = "^[A-Z]*$";
+        String nPattern = "^[a-zA-Z]*$";
         Pattern p = Pattern.compile(nPattern);
         Matcher m = p.matcher(postLetters);
         return isNotEmpty(postLetters) && m.matches() && postLetters.length() == 2;
