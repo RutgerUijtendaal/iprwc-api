@@ -1,7 +1,7 @@
 package com.rutgeruijtendaal.resources;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.rutgeruijtendaal.core.db.entities.ProductType;
+import com.rutgeruijtendaal.db.DaoManager;
 import com.rutgeruijtendaal.db.ProductTypeDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
@@ -16,9 +16,8 @@ public class ProductTypeResource {
 
     private ProductTypeDAO productTypeDAO;
 
-    @JsonCreator
-    public ProductTypeResource(ProductTypeDAO productTypeDAO) {
-        this.productTypeDAO = productTypeDAO;
+    public ProductTypeResource() {
+        this.productTypeDAO = DaoManager.getInstance().getProductTypeDAO();
     }
 
     @GET

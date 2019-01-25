@@ -1,7 +1,7 @@
 package com.rutgeruijtendaal.resources;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.rutgeruijtendaal.core.db.entities.TaxBracket;
+import com.rutgeruijtendaal.db.DaoManager;
 import com.rutgeruijtendaal.db.TaxBracketDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
@@ -16,9 +16,8 @@ public class TaxBracketResource {
 
     private TaxBracketDAO taxBracketDAO;
 
-    @JsonCreator
-    public TaxBracketResource(TaxBracketDAO taxBracketDAO) {
-        this.taxBracketDAO = taxBracketDAO;
+    public TaxBracketResource() {
+        this.taxBracketDAO = DaoManager.getInstance().getTaxBracketDAO();
     }
 
     @GET

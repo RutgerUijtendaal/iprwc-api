@@ -3,6 +3,7 @@ package com.rutgeruijtendaal.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.rutgeruijtendaal.core.db.entities.User;
+import com.rutgeruijtendaal.exceptions.DropwizardException;
 import com.rutgeruijtendaal.service.RegisterService;
 import com.rutgeruijtendaal.view.View;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -25,7 +26,7 @@ public class RegisterResource {
     @Timed
     @UnitOfWork
     @JsonView(View.Protected.class)
-    public User registerUser(User user) {
+    public User registerUser(User user) throws DropwizardException {
         return registerService.register(user);
     }
 

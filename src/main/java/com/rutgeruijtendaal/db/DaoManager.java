@@ -9,6 +9,7 @@ public class DaoManager {
     private static OrderStatusDAO orderStatusDAO;
     private static TaxBracketDAO taxBracketDAO;
     private static ProductTypeDAO productTypeDAO;
+    private static PaymentTypeDAO paymentTypeDAO;
 
     private static UserDAO userDAO;
     private static ContactInfoDAO contactInfoDAO;
@@ -17,6 +18,9 @@ public class DaoManager {
 
     private static CartDAO cartDAO;
     private static CartItemDAO cartItemDAO;
+
+    private static OrderDAO orderDAO;
+    private static OrderedProductDAO orderedProductDAO;
 
     private DaoManager() {}
 
@@ -28,6 +32,7 @@ public class DaoManager {
         orderStatusDAO = new OrderStatusDAO(factory);
         taxBracketDAO = new TaxBracketDAO(factory);
         productTypeDAO = new ProductTypeDAO(factory);
+        paymentTypeDAO = new PaymentTypeDAO(factory);
 
         userDAO = new UserDAO(factory);
         contactInfoDAO = new ContactInfoDAO(factory);
@@ -36,6 +41,9 @@ public class DaoManager {
 
         cartDAO = new CartDAO(factory);
         cartItemDAO = new CartItemDAO(factory);
+
+        orderDAO = new OrderDAO(factory);
+        orderedProductDAO = new OrderedProductDAO(factory);
     }
 
     public OrderStatusDAO getOrderStatusDAO() {
@@ -65,4 +73,16 @@ public class DaoManager {
     public CartDAO getCartDAO() { return cartDAO; }
 
     public CartItemDAO getCartItemDAO() { return cartItemDAO; }
+
+    public OrderDAO getOrderDAO() {
+        return orderDAO;
+    }
+
+    public OrderedProductDAO getOrderedProductDAO() {
+        return orderedProductDAO;
+    }
+
+    public PaymentTypeDAO getPaymentTypeDAO() {
+        return paymentTypeDAO;
+    }
 }

@@ -1,7 +1,6 @@
 package com.rutgeruijtendaal.db;
 
 import com.rutgeruijtendaal.core.db.entities.CartItem;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 

@@ -1,7 +1,7 @@
 package com.rutgeruijtendaal.resources;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.rutgeruijtendaal.core.db.entities.OrderStatus;
+import com.rutgeruijtendaal.db.DaoManager;
 import com.rutgeruijtendaal.db.OrderStatusDAO;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.IntParam;
@@ -16,9 +16,8 @@ public class OrderStatusResource {
 
     private OrderStatusDAO orderStatusDAO;
 
-    @JsonCreator
-    public OrderStatusResource(OrderStatusDAO orderStatusDAO) {
-        this.orderStatusDAO = orderStatusDAO;
+    public OrderStatusResource() {
+        this.orderStatusDAO = DaoManager.getInstance().getOrderStatusDAO();
     }
 
     @GET

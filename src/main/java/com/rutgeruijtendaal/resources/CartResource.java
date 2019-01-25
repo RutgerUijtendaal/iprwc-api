@@ -1,9 +1,10 @@
 package com.rutgeruijtendaal.resources;
 
 import com.rutgeruijtendaal.auth.jwt.AuthUser;
-import com.rutgeruijtendaal.core.CartItemJson;
+import com.rutgeruijtendaal.core.json.CartItemJson;
 import com.rutgeruijtendaal.core.db.entities.CartItem;
 import com.rutgeruijtendaal.core.db.entities.Product;
+import com.rutgeruijtendaal.exceptions.DropwizardException;
 import com.rutgeruijtendaal.service.CartService;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -26,22 +27,23 @@ public class CartResource {
 
     @GET
     @UnitOfWork
-    public List<CartItem> getCartItems(@Auth AuthUser authUser) {
+    public List<CartItem> getCartItems(@Auth AuthUser authUser) throws DropwizardException {
         return cartService.getCartItems(authUser);
     }
 
     @PUT
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
-    public CartItem addItem(@Auth AuthUser authUser, Product product) {
+    public CartItem addItem(@Auth AuthUser authUser, Product product) throws DropwizardException {
         return cartService.addCartItem(authUser, product);
     }
 
     @DELETE
     @UnitOfWork
     @Path("/{productId}")
-    public void removeItem(@Auth AuthUser authUser, @PathParam("productId") IntParam productId) {
+    public void removeItem(@Auth AuthUser authUser, @PathParam("productId") IntParam productId) throws DropwizardException {
         cartService.removeCartItem(authUser, productId.get());
+
     }
 
     @POST

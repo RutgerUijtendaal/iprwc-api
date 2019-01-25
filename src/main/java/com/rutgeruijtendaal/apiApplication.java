@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
 
 import com.rutgeruijtendaal.core.db.entities.*;
+import com.rutgeruijtendaal.exceptions.DropwizardExceptionMapper;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
@@ -43,10 +44,14 @@ public class apiApplication extends Application<apiConfiguration> {
             User.class,
             ContactInfo.class,
             ProductType.class,
+            PaymentType.class,
             TaxBracket.class,
             Product.class,
             Cart.class,
-            CartItem.class) {
+            CartItem.class,
+            Order.class,
+            OrderedProduct.class
+    ) {
         @Override
         public DataSourceFactory getDataSourceFactory(apiConfiguration configuration) {
             return configuration.getDataSourceFactory();
@@ -67,37 +72,54 @@ public class apiApplication extends Application<apiConfiguration> {
     public void run(apiConfiguration config, Environment environment) {
         DaoManager.getInstance().setupDAOS(hibernate.getSessionFactory());
 
-        // Base Info
-        environment.jersey().register(new OrderStatusResource(DaoManager.getInstance().getOrderStatusDAO()));
-        environment.jersey().register(new TaxBracketResource(DaoManager.getInstance().getTaxBracketDAO()));
-        environment.jersey().register(new ProductTypeResource(DaoManager.getInstance().getProductTypeDAO()));
+        environment.jersey().register(new DropwizardExceptionMapper());
 
-        // User
-        final RegisterService registerService = new RegisterService(
-                DaoManager.getInstance().getUserDAO(),
-                DaoManager.getInstance().getCartDAO()
-        );
-        final LoginService loginService = new LoginService(DaoManager.getInstance().getUserDAO());
-
-        environment.jersey().register(new LoginResource(loginService));
-        environment.jersey().register(new ContactInfoResource(DaoManager.getInstance().getContactInfoDAO()));
-        environment.jersey().register(new RegisterResource(registerService));
-
-        // Products
-        environment.jersey().register(new ProductResource(DaoManager.getInstance().getProductDAO()));
-
-        // Cart
-        final CartService cartService = new CartService(
-                DaoManager.getInstance().getCartDAO(),
-                DaoManager.getInstance().getCartItemDAO(),
-                DaoManager.getInstance().getProductDAO()
-        );
-
-        environment.jersey().register(new CartResource(cartService));
-
+        registerResources(environment);
         registerAuthFilters(environment);
         configureCors(environment);
     }
+
+    private void registerResources(Environment environment) {
+        registerBaseResources(environment);
+        registerUserResources(environment);
+        registerProductResources(environment);
+        registerCartResources(environment);
+        registerOrderResources(environment);
+    }
+
+    private void registerBaseResources(Environment environment) {
+        environment.jersey().register(new OrderStatusResource());
+        environment.jersey().register(new TaxBracketResource());
+        environment.jersey().register(new ProductTypeResource());
+        environment.jersey().register(new PaymentTypeResource());
+    }
+
+    private void registerUserResources(Environment environment) {
+        final RegisterService registerService = new RegisterService();
+        final LoginService loginService = new LoginService();
+        final ContactService contactService = new ContactService();
+
+        environment.jersey().register(new LoginResource(loginService));
+        environment.jersey().register(new ContactInfoResource(contactService));
+        environment.jersey().register(new RegisterResource(registerService));
+    }
+
+    private void registerProductResources(Environment environment) {
+        environment.jersey().register(new ProductResource());
+    }
+
+    private void registerCartResources(Environment environment) {
+        final CartService cartService = new CartService();
+
+        environment.jersey().register(new CartResource(cartService));
+    }
+
+    private void registerOrderResources(Environment environment) {
+        final OrderService orderService = new OrderService();
+
+        environment.jersey().register(new OrderResource(orderService));
+    }
+
 
     private void registerAuthFilters(Environment environment) {
         AuthFilters authFilters = new AuthFilters(hibernate);

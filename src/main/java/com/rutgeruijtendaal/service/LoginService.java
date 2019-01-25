@@ -4,6 +4,7 @@ import com.rutgeruijtendaal.auth.Secrets;
 import com.rutgeruijtendaal.auth.jwt.UserRoles;
 import com.rutgeruijtendaal.core.response.LoginResponse;
 import com.rutgeruijtendaal.core.db.entities.User;
+import com.rutgeruijtendaal.db.DaoManager;
 import com.rutgeruijtendaal.db.UserDAO;
 import io.dropwizard.auth.PrincipalImpl;
 import org.jose4j.jws.JsonWebSignature;
@@ -20,7 +21,9 @@ public class LoginService {
 
     private UserDAO userDAO;
 
-    public LoginService(UserDAO userDAO) { this.userDAO = userDAO; }
+    public LoginService() {
+        this.userDAO = DaoManager.getInstance().getUserDAO();
+    }
 
     public LoginResponse login(PrincipalImpl principal) throws JoseException {
         Optional<User> user = userDAO.getByEmail(principal.getName());

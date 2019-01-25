@@ -14,6 +14,10 @@ public class CartDAO extends BaseDAO<Cart> {
         return persist(cart);
     }
 
+    public Cart update(Cart cart) {
+        return (Cart) currentSession().merge(cart);
+    }
+
     public Cart getActiveCart(int userId) {
         Query query = currentSession().createQuery("from Cart where user_id = :user_id AND is_ordered = false");
         query.setParameter("user_id", userId);
