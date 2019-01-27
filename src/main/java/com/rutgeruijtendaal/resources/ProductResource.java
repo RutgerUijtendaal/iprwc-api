@@ -21,13 +21,6 @@ public class ProductResource {
         this.productDAO = DaoManager.getInstance().getProductDAO();
     }
 
-    @POST
-    @UnitOfWork
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Product createProduct(Product product) {
-        return productDAO.create(product);
-    }
-
     @GET
     @UnitOfWork
     public List<Product> getAll() {
